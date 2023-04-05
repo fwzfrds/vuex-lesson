@@ -9,16 +9,16 @@
         <router-link to="/">Home</router-link>
       </div>
       <!-- for logged in users -->
-      <div>
+      <div v-if="user">
         <span>Logged in as {{ user.email }}</span>
         <button @click="handleClick">Logout</button>
       </div>
-      <!-- for logged out users -->
-      <div v-if="!user">
-        <router-link to="/login">Login</router-link>
-        <router-link to="/signup">Signup</router-link>
-      </div>
     </template>
+    <!-- for logged out users -->
+    <div v-if="!user">
+      <router-link to="/login">Login</router-link>
+      <router-link to="/signup">Signup</router-link>
+    </div>
   </nav>
 </template>
 
@@ -34,10 +34,13 @@ export default {
       store.dispatch("logout");
     };
 
+    const user = computed(() => store.state.user);
+    const authIsReady = computed(() => store.state.authIsReady);
+
     return {
       handleClick,
-      user: computed(() => store.state.user),
-      authIsReady: computed(() => store.state.authIsReady),
+      user,
+      authIsReady,
     };
   },
 };
