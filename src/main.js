@@ -1,4 +1,11 @@
 import { createApp } from 'vue'
 import App from './App.vue'
+import router from './router'
 
-createApp(App).mount('#app')
+// global styles
+import './assets/main.css'
+
+// import store vuex
+import store from './store'
+
+createApp(App).use(router).use(store).mount('#app')
